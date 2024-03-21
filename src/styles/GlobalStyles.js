@@ -1,3 +1,6 @@
+import { createGlobalStyle } from "styled-components";
+
+const GlobalStyle = createGlobalStyle`
 /*
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -88,7 +91,7 @@ body {
   color: var(--color-grey-700);
 
   transition: color 0.3s, background-color 0.3s;
-  min-height: 100vh;
+  height: 100vh;
   line-height: 1.5;
   font-size: 1.6rem;
 }
@@ -194,3 +197,7 @@ FOR DARK MODE
 --image-grayscale: 10%;
 --image-opacity: 90%;
 */
+
+`;
+
+export default GlobalStyle;
