@@ -9,11 +9,32 @@ import Account from "./pages/Account";
 import PageNotFound from "./pages/PageNotFound";
 import AppLayout from "./ui/AppLayout";
 import GlobalStyle from "./styles/GlobalStyles";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Toaster } from "react-hot-toast";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 60 * 1000,
+    },
+  },
+});
 
 function App() {
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
       <GlobalStyle />
+      <Toaster
+        toastOptions={{
+          style: {
+            border: "1px solid #713200",
+            padding: "16px",
+            color: "#713200",
+          },
+        }}
+      />
       <BrowserRouter>
         <Routes>
           <Route element={<AppLayout />}>
@@ -29,7 +50,7 @@ function App() {
           <Route path={"/login"} element={<Login />} />
         </Routes>
       </BrowserRouter>
-    </>
+    </QueryClientProvider>
   );
 }
 
