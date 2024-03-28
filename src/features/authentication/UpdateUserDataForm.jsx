@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import { useState } from "react";
 
 import Button from "../../ui/Button";
@@ -45,7 +47,7 @@ function UpdateUserDataForm() {
         />
       </FormRow>
       <FormRow>
-        <Button type="reset" variation="secondary">
+        <Button type="reset" variations="secondary">
           Cancel
         </Button>
         <Button>Update account</Button>

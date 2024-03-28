@@ -21,8 +21,8 @@ function Cabins() {
         <CabinTable />
       </Row>
       <Button
-        sizes={"large"}
-        variation={"primary"}
+        sizes="large"
+        variations="primary"
         onClick={() => setShowForm(!showForm)}
       >
         Add new cabin
