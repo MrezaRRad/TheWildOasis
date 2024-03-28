@@ -20,13 +20,15 @@ function Cabins() {
       <Row>
         <CabinTable />
       </Row>
-      <Button
-        sizes="large"
-        variations="primary"
-        onClick={() => setShowForm(!showForm)}
-      >
-        Add new cabin
-      </Button>
+      <Row>
+        <Button
+          sizes="large"
+          variations="primary"
+          onClick={() => setShowForm(!showForm)}
+        >
+          Add new cabin
+        </Button>
+      </Row>
       {showForm && <CreateCabinForm />}
     </>
   );

@@ -7,6 +7,13 @@ import { deleteCabin } from "../../services/apiCabins";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import CreateCabinForm from "./CreateCabinForm";
+import useDeleteCabin from "./useDeleteCabin";
+import {
+  HiMiniPencilSquare,
+  HiMiniSquare2Stack,
+  HiMiniTrash,
+} from "react-icons/hi2";
+import useCreateCabin from "./useCreateCabin";
 
 const TableRow = styled.div`
   display: grid;
@@ -49,6 +56,7 @@ const Discount = styled.div`
 
 function CabinRow({ cabin }) {
   const [showEditForm, setShowEditForm] = useState(false);
+
   const {
     id: cabinId,
     name,
@@ -58,20 +66,22 @@ function CabinRow({ cabin }) {
     image,
   } = cabin;
 
+  const { isDeleting, delCabin } = useDeleteCabin();
+  const { isCreating, createCabin } = useCreateCabin();
+
   const queryClient = useQueryClient();
 
-  const { isLoading, mutate, error } = useMutation({
-    mutationFn: (id) => deleteCabin(id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["cabins"],
-      });
-      toast.success("The cabin deleted successfully");
-    },
-    onError: () => {
-      window.alert(error);
-    },
-  });
+  function handleDuplicate() {
+    createCabin({
+      name: `Copy of ${name}`,
+      maxCapacity,
+      regularPrice,
+      discount,
+      image,
+    });
+  }
+
+  const isWorking = isCreating || isDeleting;
 
   return (
     <>
@@ -84,12 +94,15 @@ function CabinRow({ cabin }) {
         <div>
           <button
             onClick={() => setShowEditForm((status) => !status)}
-            disabled={isLoading}
+            disabled={isWorking}
           >
-            Edit
+            <HiMiniPencilSquare />
           </button>
-          <button onClick={() => mutate(cabinId)} disabled={isLoading}>
-            Delete
+          <button onClick={handleDuplicate} disabled={isWorking}>
+            <HiMiniSquare2Stack />
+          </button>
+          <button onClick={() => delCabin(cabinId)} disabled={isWorking}>
+            <HiMiniTrash />
           </button>
         </div>
       </TableRow>
